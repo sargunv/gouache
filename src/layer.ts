@@ -28,6 +28,8 @@ export const OMT = "openmaptiles";
 export const DEM = "terrain";
 /** The bathymetry source's id: elevation that includes the sea floor. */
 export const SEA = "bathymetry";
+/** The satellite imagery source's id, whose colors tint the land by biome. */
+export const BIOME = "biome";
 
 /** A layer on the OpenMapTiles source. */
 export function omt(

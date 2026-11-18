@@ -26,6 +26,9 @@ pnpm -C demo dev         # or serve the demo from its sources
 
 - Map data: [OpenMapTiles](https://openmaptiles.org) by OpenFreeMap, from
   [OpenStreetMap](https://www.openstreetmap.org/copyright).
+- Land color by biome at low zoom:
+  [NASA Blue Marble](https://earthobservatory.nasa.gov/features/BlueMarble),
+  through NASA's GIBS.
 - Terrain: [Mapterhorn](https://mapterhorn.com/attribution). Ocean depth:
   [Mapzen terrain tiles](https://github.com/tilezen/joerd/blob/master/docs/attribution.md).
 - Fonts: Mona Sans and Noto Sans (SIL Open Font License).

@@ -1,5 +1,5 @@
 import type { Json } from "./expr.ts";
-import { DEM, type Layer, OMT, SEA } from "./layer.ts";
+import { BIOME, DEM, type Layer, OMT, SEA } from "./layer.ts";
 import { boundaries } from "./layers/boundaries.ts";
 import { buildings } from "./layers/buildings.ts";
 import { labels } from "./layers/labels.ts";
@@ -41,6 +41,18 @@ export function style(theme: Theme, base: string): Record<string, Json> {
         encoding: "terrarium",
         attribution:
           '<a href="https://mapterhorn.com/attribution" target="_blank">&copy; Mapterhorn</a>',
+      },
+      // Cloud-free satellite imagery: where OpenMapTiles has no land cover,
+      // below zoom 7, its colors tell desert from forest from tundra.
+      [BIOME]: {
+        type: "raster",
+        tiles: [
+          "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_NextGeneration/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg",
+        ],
+        tileSize: 256,
+        maxzoom: 8,
+        attribution:
+          '<a href="https://earthobservatory.nasa.gov/features/BlueMarble" target="_blank">NASA Blue Marble</a>',
       },
       // Mapterhorn is land only; Mapzen's terrain tiles have the sea floor.
       // Depth reads at ocean scale only, so a coarse zoom is enough.

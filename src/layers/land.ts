@@ -1,6 +1,6 @@
 import { withAlpha } from "../color.ts";
 import { fadeIn, fadeInOut, isIn, type Json, zoomLinear } from "../expr.ts";
-import { DEM, type Layer, omt } from "../layer.ts";
+import { BIOME, DEM, type Layer, omt } from "../layer.ts";
 import type { Theme } from "../theme.ts";
 
 // The ground: an elevation tint, land cover, land use, parks and terrain
@@ -67,6 +67,23 @@ export function land(t: Theme): Layer[] {
           ]),
         ),
         "color-relief-opacity": zoomLinear({ 8: 0, 12: 0.9, 13: 0.8, 15: 0 }),
+      },
+    },
+    // The imagery's hue and saturation over the tint, which keeps its
+    // lightness: the land's colors by biome until OpenMapTiles' land cover
+    // takes over.
+    {
+      id: "biome",
+      type: "raster",
+      source: BIOME,
+      maxzoom: 9,
+      paint: {
+        "raster-opacity": zoomLinear({ 0: 1, 6: 1, 8.5: 0 }),
+        "raster-layer-blend": "color",
+        // Desert sand in the imagery is close to orange.
+        "raster-saturation": -0.3,
+        "raster-resampling": "linear",
+        "raster-fade-duration": 0,
       },
     },
     omt("landuse", {
