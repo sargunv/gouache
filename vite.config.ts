@@ -1,0 +1,14 @@
+import { defineConfig } from "vite-plus";
+
+export default defineConfig({
+  lint: {
+    options: { typeAware: true, typeCheck: true },
+    rules: {
+      "typescript/no-explicit-any": "error",
+      "typescript/consistent-type-assertions": [
+        "error",
+        { assertionStyle: "never" },
+      ],
+    },
+  },
+});

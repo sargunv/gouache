@@ -1,0 +1,5 @@
+# The style's build (the root) and its demo page; pnpm reads its settings from
+# here.
+packages:
+  - "."
+  - "demo"

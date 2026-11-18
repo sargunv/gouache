@@ -1,0 +1,30 @@
+amends "package://github.com/jdx/hk/releases/download/v2.13.0/hk@2.13.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v2.13.0/hk@2.13.0#/Builtins.pkl"
+
+hooks {
+  ["pre-commit"] {
+    fix = true
+    stash = "git"
+    steps = linters
+  }
+  ["check"] { steps = linters }
+  ["fix"] {
+    fix = true
+    steps = linters
+  }
+}
+
+local linters = new Mapping<String, Step> {
+  ["dprint"] = Builtins.dprint
+  ["jactionlint"] = Builtins.jactionlint
+  ["vp-check"] {
+    glob = List("**/*.ts")
+    check = "pnpm exec vp check --no-fmt"
+    fix = "pnpm exec vp check --no-fmt --fix"
+  }
+  ["cargo-clippy"] {
+    glob = List("**/*.rs")
+    check = "cargo clippy --quiet --target wasm32-unknown-unknown -- -D warnings"
+    fix = "cargo clippy --quiet --target wasm32-unknown-unknown --fix --allow-dirty --allow-staged"
+  }
+}

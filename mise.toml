@@ -1,0 +1,48 @@
+[settings]
+experimental = true
+pin = true
+lockfile = true
+lockfile_mode = "merge"
+
+[tools]
+"aqua:dprint/dprint" = "0.65.0"
+"aqua:jdx/hk" = "2.13.0"
+"aqua:jdx/jactionlint" = "2.6.0"
+"aqua:pnpm/pnpm" = "12.21.0"
+"core:node" = "26.13.1"
+"core:rust" = { version = "1.100.0", profile = "minimal", components = "rustfmt,clippy", targets = "wasm32-unknown-unknown" }
+"github:flother/spreet" = "0.14.0"
+"cargo:build_pbf_glyphs" = "1.5.1"
+"aqua:astral-sh/uv" = "0.13.8"
+"aqua:koalaman/shellcheck" = "0.11.0"
+# Must match the wasm-bindgen crate in Cargo.lock.
+"github:wasm-bindgen/wasm-bindgen" = "0.2.130"
+"aqua:WebAssembly/binaryen" = "133"
+
+[deps.pnpm]
+auto = true
+
+[env]
+# Where the style's sprite and glyphs are served from: the demo's dev server,
+# unless set.
+GOUACHE_BASE_URL = "{{ get_env(name='GOUACHE_BASE_URL', default='http://localhost:5173/') }}"
+
+[tasks.fonts]
+description = "Build the glyphs of fonts/fonts.json into dist/fonts"
+run = "uv run scripts/fonts.py"
+sources = ["fonts/fonts.json", "scripts/fonts.py"]
+outputs = { auto = true }
+
+[tasks.build]
+description = "Build the style into dist/: style.json, the sprite and the glyphs"
+depends = ["fonts"]
+run = "node src/build.ts"
+
+[tasks.check]
+run = "hk check --all"
+
+[tasks.fix]
+run = "hk fix --all"
+
+[hooks]
+postinstall = ["hk install --mise"]

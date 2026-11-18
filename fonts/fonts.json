@@ -1,0 +1,41 @@
+{
+  "source": "https://raw.githubusercontent.com/google/fonts/7af0d90b4d532ffa4b041937b560c6df4e7b1e95/",
+  "fallback": "Noto Sans",
+  "families": {
+    "Noto Sans": {
+      "upright": "ofl/notosans/NotoSans[wdth,wght].ttf",
+      "italic": "ofl/notosans/NotoSans-Italic[wdth,wght].ttf"
+    },
+    "Mona Sans": {
+      "upright": "ofl/monasans/MonaSans[wdth,wght].ttf",
+      "italic": "ofl/monasans/MonaSans-Italic[wdth,wght].ttf",
+      "wordSpace": 0.42
+    },
+    "Mona Sans Condensed": {
+      "upright": "ofl/monasans/MonaSans[wdth,wght].ttf",
+      "italic": "ofl/monasans/MonaSans-Italic[wdth,wght].ttf",
+      "axes": {
+        "wdth": 85
+      }
+    }
+  },
+  "styles": {
+    "Regular": {
+      "wght": 400
+    },
+    "Medium": {
+      "wght": 500
+    },
+    "SemiBold": {
+      "wght": 600
+    },
+    "Italic": {
+      "wght": 400,
+      "italic": true
+    },
+    "Medium Italic": {
+      "wght": 500,
+      "italic": true
+    }
+  }
+}

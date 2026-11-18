@@ -1,0 +1,38 @@
+[package]
+name = "gouache-demo"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.98"
+license = "BSD-3-Clause"
+publish = false
+
+# One wasm module, instantiated by the map's Web Worker and by each tile
+# worker's (build.sh).
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+# The map draws with the browser's WebGPU, or, with `webgl` and without the
+# default features, with its WebGL2. build.sh builds both, and the page loads
+# one of the two.
+default = ["webgpu"]
+webgpu = ["mln_runtime/webgpu"]
+webgl = ["mln_runtime/gl"]
+
+# Only the browser target has anything to build.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+js-sys = "0.3.107"
+mln_gestures = { package = "mln-rs-gestures", git = "https://github.com/louwers/mln-rs", rev = "16b5fc3dd3d8f04df0af98b8c1bf47a6ffdb7175" }
+mln_map = { package = "mln-rs-map", git = "https://github.com/louwers/mln-rs", rev = "16b5fc3dd3d8f04df0af98b8c1bf47a6ffdb7175" }
+mln_runtime = { package = "mln-rs-runtime", git = "https://github.com/louwers/mln-rs", rev = "16b5fc3dd3d8f04df0af98b8c1bf47a6ffdb7175", default-features = false }
+mln_util = { package = "mln-rs-util", git = "https://github.com/louwers/mln-rs", rev = "16b5fc3dd3d8f04df0af98b8c1bf47a6ffdb7175" }
+mln_web_host = { package = "mln-rs-web-host", git = "https://github.com/louwers/mln-rs", rev = "16b5fc3dd3d8f04df0af98b8c1bf47a6ffdb7175" }
+parking_lot = "0.12.5"
+# The wasm-bindgen CLI that build.sh runs must be this exact version.
+wasm-bindgen = "=0.2.130"
+wasm-bindgen-futures = "0.4.80"
+web-sys = { version = "0.3.107", features = [
+  "MessagePort",
+  "OffscreenCanvas",
+  "console",
+] }
