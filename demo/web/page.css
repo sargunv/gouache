@@ -317,22 +317,6 @@ kbd {
   margin: 8px 0;
 }
 
-.gestures {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 12px;
-  margin: 12px 0;
-}
-
-.gestures dt {
-  font-weight: 600;
-}
-
-.gestures dd {
-  margin: 0;
-  color: var(--muted);
-}
-
 .status {
   color: var(--muted);
   font-size: 12px;

@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 import { defineConfig } from "vite";
@@ -10,8 +12,16 @@ import { defineConfig } from "vite";
 //
 // `orbis` is Orbis's browser library in the checkout that orbis.sh builds,
 // bundled from its sources with the wasm beside them.
+// The style's content hash: the page asks for `style.json?v=<hash>`, so a
+// new build's page never gets an older style.json from a cache.
+const styleVersion = createHash("sha256")
+  .update(readFileSync(new URL("../dist/style.json", import.meta.url)))
+  .digest("hex")
+  .slice(0, 12);
+
 export default defineConfig({
   root: "web",
+  define: { __STYLE_VERSION__: JSON.stringify(styleVersion) },
   resolve: {
     alias: {
       orbis: fileURLToPath(

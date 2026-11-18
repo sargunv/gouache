@@ -11,9 +11,16 @@ export interface Style {
   dark?: boolean;
 }
 
+/** The built style's content hash, from vite.config.ts. */
+declare const __STYLE_VERSION__: string;
+
 /** Each style's URL, relative to the page, is resolved against it. */
 export const STYLES: Style[] = [
-  { key: "gouache", name: "Gouache", url: "./style.json" },
+  {
+    key: "gouache",
+    name: "Gouache",
+    url: `./style.json?v=${__STYLE_VERSION__}`,
+  },
 ].map((style) => ({ ...style, url: new URL(style.url, location.href).href }));
 
 // The style for `?style=`: a key of STYLES, or any style's URL, which the
