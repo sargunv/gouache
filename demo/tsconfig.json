@@ -17,6 +17,11 @@
   },
   "include": [
     "web/main.ts",
+    "web/engine.ts",
+    "web/mlnrs.ts",
+    "web/gljs.ts",
+    "web/orbis.ts",
+    "web/orbis-api.d.ts",
     "web/styles.ts",
     "web/protocol.ts",
     "web/wheel.ts",

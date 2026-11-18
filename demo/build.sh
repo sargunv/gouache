@@ -6,8 +6,8 @@
 #   demo/build.sh --release  the size-optimized build to publish
 #
 # The map's module is built twice: with WebGPU, and with the `webgl` feature
-# for browsers without WebGPU, which alone download it. Vite then builds the
-# page around them.
+# for browsers without WebGPU, which alone download it. orbis.sh builds Orbis,
+# for `engine=orbis`. Vite then builds the page around them.
 set -euo pipefail
 
 release=false
@@ -56,6 +56,8 @@ bind "$pkg"
 cargo build "${profile[@]}" --target wasm32-unknown-unknown -p gouache-demo \
   --no-default-features --features webgl
 bind "$pkg/webgl"
+
+demo/orbis.sh
 
 pnpm -C demo install --frozen-lockfile
 pnpm -C demo build

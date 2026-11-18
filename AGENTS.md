@@ -19,7 +19,9 @@ mln-rs in the browser.
 - `mise run build`: build `dist/` (glyphs only when the fonts change).
   `GOUACHE_BASE_URL` sets where the sprite and glyphs are served from.
 - `demo/build.sh [--release]`, then `pnpm -C demo dev`: the demo, with the style
-  beside it.
+  beside it. `?engine=gljs` or `?engine=orbis` draws it with GL JS or Orbis.
+  `demo/orbis.sh` (which `build.sh` runs) builds the pinned Orbis commit in
+  `.cache/orbis`, on Orbis's own Rust toolchain.
 - `mise run check`, `mise run fix`: formatters and linters.
 
 ## Invariants
