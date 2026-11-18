@@ -30,9 +30,12 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v6
       - name: Build the style
-        run: mise run build
+        # The site's own URL, over HTTPS: Pages reports http:// for a custom
+        # domain that doesn't enforce HTTPS, and pages served over HTTPS can't
+        # load from it.
+        run: GOUACHE_BASE_URL="https://${BASE_URL#*://}/" mise run build
         env:
-          GOUACHE_BASE_URL: ${{ steps.pages.outputs.base_url }}/
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
       - name: Build the demo
         run: demo/build.sh --release
       - uses: actions/upload-pages-artifact@v5
