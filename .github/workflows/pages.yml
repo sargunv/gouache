@@ -33,6 +33,12 @@ jobs:
         run: mise run build
         env:
           GOUACHE_BASE_URL: ${{ steps.pages.outputs.base_url }}/
+      # Orbis's build, which demo/orbis.sh skips when web/pkg is of the
+      # commit it pins.
+      - uses: actions/cache@v6
+        with:
+          path: .cache/orbis/web/pkg
+          key: orbis-pkg-${{ hashFiles('demo/orbis.sh') }}
       - name: Build the demo
         run: demo/build.sh --release
       - uses: actions/upload-pages-artifact@v5
